@@ -30,7 +30,6 @@ a:focus {
     color: #2c3e50;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -89,7 +88,7 @@ span {
     display: none;
 }
 
-#sidebar.active .sidebar-header strong {
+#sidebar.active .sidebar-header img {
     display: block;
 }
 
@@ -123,12 +122,16 @@ span {
     transform: translateX(50%);
 }
 
+.sidebar-header h3{
+    text-align: center;
+}
+
 #sidebar .sidebar-header {
     padding: 20px;
     background: #2980b9;
 }
 
-#sidebar .sidebar-header strong {
+#sidebar .sidebar-header img {
     display: none;
     font-size: 1.8em;
 }
@@ -202,8 +205,13 @@ a.article:hover {
 #content {
     width: 100%;
     padding: 20px;
+    overflow: scroll;
     min-height: 100vh;
     transition: all 0.3s;
+}
+
+#content-nav{
+    width: 100%;
 }
 
 #nav{
@@ -267,4 +275,57 @@ a.article:hover {
 
 span svg{
     color: #2c3e50;
+}
+
+.item{
+    background-color: #bdc3c7;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.item div{
+    display: flex;
+    flex-direction: row;
+}
+
+.spacer{
+    margin-right: 10px;
+}
+
+.item .divider{
+    margin: 0 10px 0 10px;
+}
+
+@media (max-width: 540px) {
+    .item{
+        background-color: #bdc3c7;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .item h2{
+        font-size: 23px;
+    }
+
+    .item div{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .item div h4{
+        font-size: 13px;
+    }
+
+    .spacer{
+        margin-right: 10px;
+    }
+
+    .item .divider{
+        margin: 0 10px 0 10px;
+        font-size: 13px;
+    }
 }

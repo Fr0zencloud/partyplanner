@@ -1,16 +1,23 @@
 <?php
 require("apiConnector.php");
+$successmsg = null;
+$errormsg = null;
 
-$api = new apiConnector("google.com", 80);
+$api = new apiConnector("http://google.com", 80);
 try{
-    if($api->test()){
+    if($api->test() == true){
         $successmsg = "Verbindung erfolgreich aufgebaut!";
     }
 } catch (Exception $e){
-    $errormsg = "Konnte keine Verbindung zum Server aufbauen: " . $e->getMessage();
+    $errormsg = "<b>Konnte keine Verbindung zum Server aufbauen: </b>" . $e->getMessage();
 }
 ?>
     <style>
+        body{
+            font-family: Verdana,sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+        }
         /* The alert message box */
         .alert {
             padding: 20px;
@@ -43,14 +50,14 @@ try{
             color: black;
         }
     </style>
-<?php if($successmsg > 0) { ?>
+<?php if($errormsg != null) { ?>
     <div class="alert danger">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <?php echo $errormsg; ?>
     </div>
     <?php
 }
-if($successmsg > 0) { ?>
+if($successmsg != null) { ?>
     <div class="alert success">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <?php echo $successmsg; ?>

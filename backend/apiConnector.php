@@ -19,30 +19,36 @@ class apiConnector{
     }
 
     /**
+     * @return bool
      * @throws Exception
-     * @return string
      */
     function test(){
-        curl_setopt($this->curl, CURLOPT_URL, $this->server . "/");
+        try{
+            if($this->getRequest("/test")){
+                return true;
+            }
+        }catch (Exception $e){
+            throw new Exception($e->getMessage());
+        }
+        return false;
+    }
+
+    /**
+     * @throws Exception
+     * @return string
+     * @param string
+     */
+    function getRequest($data){
+        curl_setopt($this->curl, CURLOPT_URL, $this->server . $data);
         curl_setopt($this->curl, CURLOPT_PORT, $this->port);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 0);
         curl_setopt($this->curl, CURLOPT_TIMEOUT, 5);
-        curl_exec($this->curl);
+        $curl = curl_exec($this->curl);
         if(curl_errno($this->curl) > 0){
             throw new Exception(curl_error($this->curl));
         }else{
-            return true;
-        }
-    }
-
-    function get($_data){
-        $http_get = http_get($this->server . ":" . $this->port . "/" . $_data);
-        if(!$http_get){
-            error_log("Could not get from Server");
-            return false;
-        }else{
-            return json_decode($http_get);
+            return $curl;
         }
     }
 

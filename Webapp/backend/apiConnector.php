@@ -3,11 +3,19 @@ class apiConnector{
 
     var $server = "";
     var $port = 0;
+    var $timeout = 0;
     var $curl;
 
-    function __construct($server, $port){
+    /**
+     * apiConnector constructor.
+     * @param $server string
+     * @param $port int
+     * @param $timeout int
+     */
+    function __construct($server, $port, $timeout){
         $this->server = $server;
         $this->port = $port;
+        $this->timeout = $timeout;
         $this->curl = curl_init();
     }
 
@@ -19,13 +27,14 @@ class apiConnector{
     }
 
     /**
-     * @return bool
+     * @return string
      * @throws Exception
      */
-    function test(){
+    function testConnection(){
         try{
-            if($this->getRequest("/test")){
-                return true;
+            $test = $this->getRequest("/test");
+            if($test != false){
+                return $test;
             }
         }catch (Exception $e){
             throw new Exception($e->getMessage());
@@ -43,7 +52,7 @@ class apiConnector{
         curl_setopt($this->curl, CURLOPT_PORT, $this->port);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 0);
-        curl_setopt($this->curl, CURLOPT_TIMEOUT, 5);
+        curl_setopt($this->curl, CURLOPT_TIMEOUT, $this->timeout);
         $curl = curl_exec($this->curl);
         if(curl_errno($this->curl) > 0){
             throw new Exception(curl_error($this->curl));
@@ -52,7 +61,7 @@ class apiConnector{
         }
     }
 
-    function post($_data){
+    function post($data){
 
     }
 

@@ -2,22 +2,26 @@
 require("apiConnector.php");
 $successmsg = null;
 $errormsg = null;
+$iframe;
 
-$api = new apiConnector("http://google.com", 80);
-try{
-    if($api->test() == true){
-        $successmsg = "Verbindung erfolgreich aufgebaut!";
+$api = new apiConnector("google.de", 80, 5);
+try {
+    $test = $api->testConnection();
+    if ($test != false) {
+        $successmsg = "<b>Success!</b> Connection established, server is up and running.";
+        $iframe = $test;
     }
-} catch (Exception $e){
-    $errormsg = "<b>Konnte keine Verbindung zum Server aufbauen: </b>" . $e->getMessage();
+} catch (Exception $e) {
+    $errormsg = "<b>Error!</b> Couldn't connect to server: " . $e->getMessage();
 }
 ?>
     <style>
-        body{
-            font-family: Verdana,sans-serif;
+        body {
+            font-family: Verdana, sans-serif;
             font-size: 15px;
             line-height: 1.5;
         }
+
         /* The alert message box */
         .alert {
             padding: 20px;
@@ -25,11 +29,11 @@ try{
             margin-bottom: 15px;
         }
 
-        .danger{
+        .danger {
             background-color: #f44336; /* Red */
         }
 
-        .success{
+        .success {
             background-color: #4CAF50; /* Green */
         }
 
@@ -50,19 +54,32 @@ try{
             color: black;
         }
     </style>
-<?php if($errormsg != null) { ?>
-    <div class="alert danger">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <?php echo $errormsg; ?>
-    </div>
+    <head>
+        <title>Partyplanner - TestAPI</title>
+        <h1>Test API Connection</h1>
+    </head>
+    <body>
+    <?php if ($errormsg != null) { ?>
+        <div class="alert danger">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <?php echo $errormsg; ?>
+        </div>
+        <?php
+    }
+    if ($successmsg != null) { ?>
+        <div class="alert success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <?php echo $successmsg; ?>
+        </div>
+        <?php
+    }
+    ?>
+    <p>Output: </p>
+    <textarea style="width: 100%; height: 80%;">
     <?php
-}
-if($successmsg != null) { ?>
-    <div class="alert success">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <?php echo $successmsg; ?>
-    </div>
-    <?php
-}
-echo $json_test;
+    echo $iframe;
+    ?>
+</textarea>
+    </body>
+<?php
 unset($api);

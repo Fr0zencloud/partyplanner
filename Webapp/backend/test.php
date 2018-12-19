@@ -2,14 +2,13 @@
 require("apiConnector.php");
 $successmsg = null;
 $errormsg = null;
-$iframe;
 
-$api = new apiConnector("google.de", 80, 5);
+$api = new apiConnector("google.com", 80, 5, true);
 try {
     $test = $api->testConnection();
     if ($test != false) {
         $successmsg = "<b>Success!</b> Connection established, server is up and running.";
-        $iframe = $test;
+        $response = $test;
     }
 } catch (Exception $e) {
     $errormsg = "<b>Error!</b> Couldn't connect to server: " . $e->getMessage();
@@ -54,11 +53,18 @@ try {
             color: black;
         }
     </style>
+    <script>
+        var response = document.getElementById('response').value;
+
+        window.onload = function() {
+            response = JSON.stringify(JSON.parse(response), undefined, 4);
+        }
+    </script>
     <head>
         <title>Partyplanner - TestAPI</title>
-        <h1>Test API Connection</h1>
     </head>
     <body>
+    <h1>Test API Connection</h1>
     <?php if ($errormsg != null) { ?>
         <div class="alert danger">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -75,11 +81,11 @@ try {
     }
     ?>
     <p>Output: </p>
-    <textarea style="width: 100%; height: 80%;">
-    <?php
-    echo $iframe;
-    ?>
-</textarea>
+    <textarea style="width: 100%; height: 80%;" id="response" title="response">
+        <?php
+        echo $response;
+        ?>
+    </textarea>
     </body>
 <?php
 unset($api);

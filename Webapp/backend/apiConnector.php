@@ -11,12 +11,20 @@ class apiConnector{
      * @param $server string
      * @param $port int
      * @param $timeout int
+     * @param $port_override bool
      */
-    function __construct($server, $port, $timeout){
+    function __construct($server, $port, $timeout, $port_override){
         $this->server = $server;
-        $this->port = $port;
         $this->timeout = $timeout;
         $this->curl = curl_init();
+
+        if(substr($server, 0, 5 ) === "https" && $port_override){
+            $this->port = 443;
+        }elseif(substr($server, 0, 4 ) === "http" && $port_override){
+            $this->port = 80;
+        }else{
+            $this->port = $port;
+        }
     }
 
     function __destruct()
@@ -52,6 +60,7 @@ class apiConnector{
         curl_setopt($this->curl, CURLOPT_PORT, $this->port);
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 0);
+        curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($this->curl, CURLOPT_TIMEOUT, $this->timeout);
         $curl = curl_exec($this->curl);
         if(curl_errno($this->curl) > 0){

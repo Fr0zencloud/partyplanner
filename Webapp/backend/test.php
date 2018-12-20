@@ -3,6 +3,8 @@ require("apiConnector.php");
 $successmsg = null;
 $errormsg = null;
 
+//test
+
 $api = new apiConnector("google.com", 80, 5, true);
 try {
     $test = $api->testConnection();

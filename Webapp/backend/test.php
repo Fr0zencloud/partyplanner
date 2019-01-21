@@ -3,9 +3,9 @@ require("apiConnector.php");
 $successmsg = null;
 $errormsg = null;
 
-//test
+//testasfd
 
-$api = new apiConnector("google.com", 80, 5, true);
+$api = new apiConnector("dominikmb.local", 80, 5, true);
 try {
     $test = $api->testConnection();
     if ($test != false) {

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>PartyPlanner - Login</title>
+    <title>Planner - Login</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -28,23 +28,23 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <h1 style="text-align: center; width: 100%;">
-            PartyPlanner - Login
+            Planner - Login
         </h1>
     </div>
 </nav>
 <div class="flex">
-    <form class="form-signin">
+    <form class="form-signin" method="post" action="http://dominikmb.local:80/login">
         <img class="mb-4" src="img/logo.png" width="125px" height="125px">
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox mb-3">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <a class="btn btn-lg btn-primary btn-block" href="index.html">Sign in</a>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
 </div>

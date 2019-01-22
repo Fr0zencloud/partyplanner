@@ -1,12 +1,19 @@
-<script src="apiConnector.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    let api = new apiConnector("dominikmb.local", 1080, 5, true);
-    window.onload = function(){
-        document.getElementById("response").innerHTML = api.testConnection();
-    };
-    
+    let url = "http://noperms.de:1080/test"
+    $.ajax({url: url, success: function(result){
+        $("#response").text(result);
+        if(result != false){
+            $("#alertSuccess").toggle();
+        }else{
+            $("#alertDanger").toggle();
+        }
+        var ugly = $('#response').val()
+        var obj = JSON.parse(ugly);
+        var pretty = JSON.stringify(obj, undefined, 4);
+        $('#response').text(pretty);
+    }});
 </script>
-
     <style>
         body {
             font-family: Verdana, sans-serif;
@@ -46,35 +53,20 @@
             color: black;
         }
     </style>
-    <script>
-        var response = document.getElementById('response').value;
-
-        window.onload = function() {
-            response = JSON.stringify(JSON.parse(response), undefined, 4);
-        }
-    </script>
     <head>
         <title>Partyplanner - TestAPI</title>
     </head>
     <body>
     <h1>Test API Connection</h1>
-    <?php if ($errormsg != null) { ?>
-        <div class="alert danger">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <?php echo $errormsg; ?>
-        </div>
-        <?php
-    }
-    if ($successmsg != null) { ?>
-        <div class="alert success">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <?php echo $successmsg; ?>
-        </div>
-        <?php
-    }
-    ?>
+    <div class="alert danger" id="alertDanger" style="display: none">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Error while Connecting
+    </div>
+    <div class="alert success" id="alertSuccess" style="display: none">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Connection Successful
+    </div>
     <p>Output: </p>
     <textarea style="width: 100%; height: 80%;" id="response" title="response">
-
     </textarea>
     </body>

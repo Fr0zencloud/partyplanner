@@ -1,18 +1,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     let url = "http://noperms.de:1080/test"
-    $.ajax({url: url, success: function(result){
-        $("#response").text(result);
-        if(result != false){
-            $("#alertSuccess").toggle();
-        }else{
-            $("#alertDanger").toggle();
+    $.ajax(
+        {
+            url: url,
+            success: function(result){
+                $("#response").text(result);
+                $("#alertSuccess").toggle();
+                var ugly = $('#response').val()
+                var obj = JSON.parse(ugly);
+                var pretty = JSON.stringify(obj, undefined, 4);
+                $('#response').text(pretty);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                if(errorThrown !== ""){
+                    $("#alertDanger").text("Error while connecting: (" + textStatus + ")" + errorThrown);
+                }
+                $("#alertDanger").toggle();
+            }
         }
-        var ugly = $('#response').val()
-        var obj = JSON.parse(ugly);
-        var pretty = JSON.stringify(obj, undefined, 4);
-        $('#response').text(pretty);
-    }});
+    );
 </script>
     <style>
         body {
@@ -60,7 +67,7 @@
     <h1>Test API Connection</h1>
     <div class="alert danger" id="alertDanger" style="display: none">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        Error while Connecting
+        Error while Connecting: Unkown Error
     </div>
     <div class="alert success" id="alertSuccess" style="display: none">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>

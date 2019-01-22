@@ -30,7 +30,7 @@
                 let email = $("#inputEmail").val().trim();
                 let password = $("#inputPassword").val().trim();
                 let remeber = $('#checkbox').is(':checked');
-                let url = "/backend/post.php";
+                let url = "http://localhost:1080/login";
 
                 if( email != "" && password != "" ){
                     $.ajax({
@@ -38,8 +38,7 @@
                         type:'post',
                         data:{
                             email:email,
-                            password:password,
-                            remeber:remeber
+                            password:password
                         },
                         success:function(response){
                             console.log(response);

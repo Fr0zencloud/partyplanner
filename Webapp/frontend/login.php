@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,7 +36,7 @@
     </div>
 </nav>
 <div class="flex">
-    <form class="form-signin" method="post" action="http://dominikmb.local:80/login">
+    <form class="form-signin" method="post" action="http://dominikmb.local:1080/login">
         <img class="mb-4" src="img/logo.png" width="125px" height="125px">
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">

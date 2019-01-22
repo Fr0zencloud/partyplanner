@@ -1,21 +1,12 @@
-<?php
-require("apiConnector.php");
-$successmsg = null;
-$errormsg = null;
+<script src="apiConnector.js"></script>
+<script>
+    let api = new apiConnector("dominikmb.local", 1080, 5, true);
+    window.onload = function(){
+        document.getElementById("response").innerHTML = api.testConnection();
+    };
+    
+</script>
 
-//testasfd
-
-$api = new apiConnector("dominikmb.local", 1080, 5, true);
-try {
-    $test = $api->testConnection();
-    if ($test != false) {
-        $successmsg = "<b>Success!</b> Connection established, server is up and running.";
-        $response = $test;
-    }
-} catch (Exception $e) {
-    $errormsg = "<b>Error!</b> Couldn't connect to server: " . $e->getMessage();
-}
-?>
     <style>
         body {
             font-family: Verdana, sans-serif;
@@ -84,10 +75,6 @@ try {
     ?>
     <p>Output: </p>
     <textarea style="width: 100%; height: 80%;" id="response" title="response">
-        <?php
-        echo $response;
-        ?>
+
     </textarea>
     </body>
-<?php
-unset($api);

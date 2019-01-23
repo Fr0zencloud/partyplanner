@@ -40,7 +40,7 @@ public class GetLogin implements HttpHandler {
         
         JSON json = new JSON();
         if(this.allow == "true") {
-        	json.addArgument("userid", String.valueOf(this.userId));
+        	json.addArgument("userId", String.valueOf(this.userId));
         	json.addArgument("sessionId", this.sessionId);
             json.addArgument("username", this.username);
             json.addArgument("name", this.vorname);

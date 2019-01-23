@@ -45,7 +45,6 @@
                         },
                         success:function(response){
                             response = JSON.parse(response);
-                            console.log(response);
                             if(response.access === true){
                                 //set Cookies
                                 Cookies.set('sessionId', response.sessionId);

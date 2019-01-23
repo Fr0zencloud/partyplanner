@@ -1,11 +1,11 @@
 package de.frozencloud.objekts;
 
 public class SessionHandler {
-	private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyz0123456789";
+	private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	private static int sessionIdLength = 25;
 	
 	//TODO fill the SessionId in Database with given UserId
-	//TODO have a list from all active sessions and check if the newly created is uniqe
+	//TODO have a list from all active sessions and check if the newly created is unique
 	public String createSession() {
 		StringBuilder builder = new StringBuilder();
 		while (sessionIdLength-- != 0) {

@@ -3,6 +3,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import de.frozencloud.main.Main;
 import de.frozencloud.objekts.JSON;
+import de.frozencloud.objekts.SessionHandler;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -16,23 +17,31 @@ public class GetLogin implements HttpHandler {
     private String vorname;
     private String nachname;
     private String password;
+    private int userId;
     private String email;
     private String allow;
+    private String sessionId = "";
 
     public void handle(HttpExchange t) throws IOException {
+    	SessionHandler sessionHandler = new SessionHandler();
         this.allow = "false";
         InputStream input = t.getRequestBody();
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         String test = reader.readLine();
         String test1 = test.replaceAll("email=", "");
         String[] data = test1.split("&password=");
+        
         this.email = data[0];
         this.password = data[1];
         this.email = URLDecoder.decode(this.email, "UTF-8");
         this.password = URLDecoder.decode(this.password, "UTF-8");
+        this.sessionId = sessionHandler.createSession();
         this.loadData();
+        
         JSON json = new JSON();
         if(this.allow == "true") {
+        	json.addArgument("userid", String.valueOf(this.userId));
+        	json.addArgument("sessionId", this.sessionId);
             json.addArgument("username", this.username);
             json.addArgument("name", this.vorname);
             json.addArgument("lastname", this.nachname);
@@ -60,6 +69,7 @@ public class GetLogin implements HttpHandler {
                     this.username = rs.getString("username");
                     this.vorname = rs.getString("name");
                     this.nachname = rs.getString("surname");
+                    this.userId = rs.getInt("id");
                     if(this.vorname == null) {
                         this.vorname = " ";
                     }

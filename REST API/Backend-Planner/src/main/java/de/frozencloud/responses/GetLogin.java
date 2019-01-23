@@ -37,7 +37,7 @@ public class GetLogin implements HttpHandler {
             json.addArgument("name", this.vorname);
             json.addArgument("lastname", this.nachname);
             json.addArgument("email", this.email);
-            json.addArgument("acces", this.allow);
+            json.addArgument("access", this.allow);
             Main.message("Client: " + t.getLocalAddress().getHostName() + " | acces allow!");
         } else {
             json.addArgument("acces", "false");
@@ -45,6 +45,7 @@ public class GetLogin implements HttpHandler {
         }
         String jsonresponse = json.build();
         jsonresponse = URLDecoder.decode(jsonresponse, "UTF-8");
+        t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         t.sendResponseHeaders(200, jsonresponse.length());
         OutputStream os = t.getResponseBody();
         os.write(jsonresponse.getBytes());

@@ -15,7 +15,10 @@
     <!-- JQuery JS CDN -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
+    
+            <!-- Cookies Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
             integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
@@ -41,11 +44,12 @@
                             password:password
                         },
                         success:function(response){
+                            response = JSON.parse(response);
                             console.log(response);
                             if(response.access === true){
                                 //set Cookies
-                                $.cookie("sessionId", response.sessionId);
-                                $.cookie("userId", response.userId);
+                                Cookies.set('sessionId', response.sessionId);
+                                Cookies.set('userId', response.userId);
                                 //redirect to index
                                 window.location = "/";
                             }else{

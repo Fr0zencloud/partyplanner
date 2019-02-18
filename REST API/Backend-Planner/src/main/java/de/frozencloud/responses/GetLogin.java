@@ -9,6 +9,7 @@ import java.net.URLDecoder;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 
 public class GetLogin implements HttpHandler {
 
@@ -20,6 +21,8 @@ public class GetLogin implements HttpHandler {
     private String allow;
 
     public void handle(HttpExchange t) throws IOException {
+    	Main.message("Client connected (Host: " + t.getRemoteAddress().getHostName() + ", RequestType: '/login')");
+    	Long logintime = System.currentTimeMillis();
         this.allow = "false";
         InputStream input = t.getRequestBody();
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -38,10 +41,8 @@ public class GetLogin implements HttpHandler {
             json.addArgument("lastname", this.nachname);
             json.addArgument("email", this.email);
             json.addArgument("acces", this.allow);
-            Main.message("Client: " + t.getLocalAddress().getHostName() + " | acces allow!");
         } else {
             json.addArgument("acces", "false");
-            Main.message("Client: " + t.getLocalAddress().getHostName() + " | acces deny!");
         }
         String jsonresponse = json.build();
         jsonresponse = URLDecoder.decode(jsonresponse, "UTF-8");
@@ -49,6 +50,9 @@ public class GetLogin implements HttpHandler {
         OutputStream os = t.getResponseBody();
         os.write(jsonresponse.getBytes());
         os.close();
+        Long currenttime = System.currentTimeMillis();
+        double seconds = (double) (currenttime - logintime) /1000D;
+        Main.message("Client conection closed (Host: " + t.getRemoteAddress().getHostName() + ", LoginAccept: " + this.allow + ") [time: " + Main.round(seconds) + "]");
     }
     private void loadData() {
         try {

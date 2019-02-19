@@ -2,7 +2,8 @@
 @section('content')
     <h1>Create new Meeting</h1>
     <div class="line"></div>
-    <form>
+    <form action="/meetings/add" method="POST">
+        {{ csrfField() }}
         <div class="form-group">
             <label for="inputTitle">Title</label>
             <input type="text" class="form-control" id="inputTitle" placeholder="Meeting Title">

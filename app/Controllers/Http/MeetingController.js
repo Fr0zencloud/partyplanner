@@ -61,12 +61,12 @@ class MeetingController {
             return response.redirect('back')
         }
         
-        const post = new Post()
+        const meeting = new Meeting()
 
-        post.title = request.input('title')
-        post.body = request.input('body')
+        meeting.title = request.input('title')
+        meeting.body = request.input('body')
 
-        await post.save()
+        await meeting.save()
 
         session.flash({ notification: 'Meeting Added!' })
 

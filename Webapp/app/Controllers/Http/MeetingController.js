@@ -6,7 +6,10 @@ const Logger = use('Logger')
 class MeetingController {
     async index({ view }) {
 
-        let meetings = await Meeting.all()
+        let meetings = await Meeting
+            .query()
+            .orderBy('start_date', 'asc')
+            .fetch()
         meetings = meetings.toJSON()
 
         for (let i in meetings) {

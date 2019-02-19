@@ -6,7 +6,11 @@
         {{ csrfField() }}
         <div class="form-group">
             <label for="inputTitle">Title</label>
-            <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Meeting Title">
+            <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Meeting title">
+        </div>
+        <div class="form-group">
+            <label for="inputDescription">Description</label>
+            <textarea type="text" name="description" class="form-control" id="inputDescription" placeholder="Meeting description"></textarea>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -25,7 +29,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="end_time">Time</label>
-                <input type="time" name="end_title" class="form-control" id="end_time">
+                <input type="time" name="end_time" class="form-control" id="end_time">
             </div>
         </div>
         <div class="form-row">

@@ -51,7 +51,7 @@ class MeetingController {
 
     async store({ request, response, session }){
         //Validate input
-        const validation = await validate(request.all(), {
+        /*const validation = await validate(request.all(), {
             title: 'required|min:3|max:255',
             body: 'required|min:3'
         })
@@ -60,12 +60,15 @@ class MeetingController {
             session.withErrors(validation.messages()).flashAll()
             return response.redirect('back')
         }
-        
+        */
         const meeting = new Meeting()
-
-        meeting.title = request.input('title')
-        meeting.body = request.input('body')
-
+        //Date 2019-02-23 12:30:00
+        meeting.name = request.input('title')
+        meeting.description = request.input('description')
+        meeting.start_date = request.input('start_date') + " " + request.input('start_time')
+        meeting.end_date = request.input('start_date') + " " + request.input('end_time')
+        meeting.address = request.input('address')
+        meeting.plz = request.input('zip')
         await meeting.save()
 
         session.flash({ notification: 'Meeting Added!' })

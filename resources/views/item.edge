@@ -1,9 +1,9 @@
 <div class="item">
         <h2><span class="badge badge-secondary">Party </span> {{ meeting.name }}</h2>
         <div class="dateTime">
-            <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.start_date }}</h4><h4><span class="fa fa-clock"></span> 18:00</h4>
+            <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.start_date }}</h4><h4><span class="fa fa-clock"></span> {{ meeting.start_time }}</h4>
             <h2 class="divider">-</h2>
-            <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.end_date }}</h4><h4><span class="fa fa-clock"></span> 8:00</h4>
+            <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.end_date }}</h4><h4><span class="fa fa-clock"></span> {{ meeting.end_time }}</h4>
         </div>
         <div class="address">
             <h4><span class="fa fa-map-marker-alt"></span> {{ meeting.address + ' ,' + meeting.plz }}</h4>

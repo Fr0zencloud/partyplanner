@@ -1,21 +1,27 @@
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>PartyPlanner</h3>
-        <img src="logo_light.png" width="40px" height="40px">
+        <img src="/logo_light.png" width="40px" height="40px">
     </div>
 
     <ul class="list-unstyled components">
         <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
                 <i class="fas fa-users"></i>
                 Meetings
             </a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
+                    <a href="/meetings"><i class="fas fa-calendar-alt"></i> All Meetings</a>
+                </li>
+                <li>
                     <a href="#"><span class="badge badge-secondary">Party </span> Niklas Geburtstag</a>
                 </li>
                 <li>
                     <a href="#"><span class="badge badge-secondary">Chillen </span> AfterWork</a>
+                </li>
+                <li>
+                    <a href="/meetings/add"><i class="fas fa-plus"></i> Create New Meeting</a>
                 </li>
             </ul>
         </li>

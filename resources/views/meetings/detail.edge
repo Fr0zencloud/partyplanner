@@ -1,0 +1,11 @@
+@layout('main')
+@section('content')
+    <h1>All Meetings</h1>
+    <div class="line"></div>
+    @each(meeting in meetings)
+        @include('item')
+        @if(!$loop.last)
+            <div class="line"></div>
+        @endif
+    @endeach
+@endsection

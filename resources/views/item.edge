@@ -1,15 +1,22 @@
-<div class="item">
-        <h2><span class="badge badge-secondary">Party </span> {{ meeting.name }}</h2>
+<form>
+    <div class="item">
+        <h2 class="title">
+            <span class="badge badge-secondary">Party </span> 
+            <span class="name">{{ meeting.name }}</span>
+            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-secondary">Edit</button>
+        </h2>
         <div class="dateTime">
             <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.start_date }}</h4><h4><span class="fa fa-clock"></span> {{ meeting.start_time }}</h4>
             <h2 class="divider">-</h2>
             <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.end_date }}</h4><h4><span class="fa fa-clock"></span> {{ meeting.end_time }}</h4>
         </div>
         <div class="address">
-            <h4><span class="fa fa-map-marker-alt"></span> {{ meeting.address + ' ,' + meeting.plz }}</h4>
+            <h4><span class="fa fa-map-marker-alt"></span> {{ meeting.address + ', ' + meeting.plz }}</h4>
         </div>
         <div class="accepted">
             <h4><span class="fa fa-user"></span> 4/15 Accepted</h4>
         </div>
-        <p>Description</p>
+        <p>{{ meeting.description }}</p>
     </div>
+</form>

@@ -57,6 +57,26 @@ span {
 }
 
 /* ---------------------------------------------------
+    MEETING TILE STYLE
+----------------------------------------------------- */
+
+.title::after { 
+    content: '';
+    display: table;
+    clear: both;
+} 
+.title span { 
+    float: left;
+} 
+.title button {
+    float: right;
+    margin-left: 1rem;
+}
+.title .name {
+    margin-left: 1rem;
+}
+
+/* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
 

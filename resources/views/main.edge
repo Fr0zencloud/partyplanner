@@ -16,17 +16,13 @@
 </head>
 
 <body>
-
 <div class="wrapper">
     @include('inc/sidebar')
     <div id="content-nav">
         @include('inc/navbar')
         <div id="content">
-            <!-- Each Item in Items-->
-            @each(meeting in meetings)
-                @include('item')
-                <div class="line"></div>
-            @endeach
+            @!section('content')
+        </div>
     </div>
 </div>
 

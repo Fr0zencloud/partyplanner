@@ -17,3 +17,5 @@
 const Route = use('Route')
 
 Route.get('/', 'MeetingController.index')
+Route.get('/meetings/', 'MeetingController.index')
+Route.get('/meetings/add', 'MeetingController.add')

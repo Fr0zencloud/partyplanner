@@ -5,24 +5,20 @@ const Logger = use('Logger')
 
 class MeetingController {
     async index({ view }) {
-        
-        const meetings = await Meeting.all()
-        let meetingsObj = meetings.toJSON()        
 
-        for(let i in meetingsObj){
-            let start_date = new Date(meetingsObj[i].start_date)
-            let end_date = new Date(meetingsObj[i].end_date)
-            meetingsObj[i].start_date = getDate(start_date)
-            meetingsObj[i].end_date = getDate(end_date)
-            meetingsObj[i].start_time = getTime(start_date)
-            meetingsObj[i].end_time = getTime(end_date)
+        let meetings = await Meeting.all()
+        meetings = meetings.toJSON()
+
+        for (let i in meetings) {
+            let start_date = new Date(meetings[i].start_date)
+            let end_date = new Date(meetings[i].end_date)
+            meetings[i].start_date = getDate(start_date)
+            meetings[i].end_date = getDate(end_date)
+            meetings[i].start_time = getTime(start_date)
+            meetings[i].end_time = getTime(end_date)
         }
 
-        return view.render('main', {
-            meetings: meetingsObj
-        })
-
-        function getDate(date){
+        function getDate(date) {
             let day = date.getDay()
             let month = date.getMonth()
             let year = date.getFullYear()
@@ -30,7 +26,7 @@ class MeetingController {
             return day + "." + month + "." + year
         }
 
-        function getTime(date){
+        function getTime(date) {
             let hours = date.getHours()
             let minutes = date.getMinutes()
 
@@ -43,6 +39,38 @@ class MeetingController {
 
             return hours + ":" + minutes
         }
+
+        return view.render('meetings/detail', {
+            meetings: meetings
+        })
+    }
+
+    async add({ view }){
+        return view.render('meetings.add')
+    }
+
+    async store({ request, response, session }){
+        //Validate input
+        const validation = await validate(request.all(), {
+            title: 'required|min:3|max:255',
+            body: 'required|min:3'
+        })
+
+        if(validation.fails()){
+            session.withErrors(validation.messages()).flashAll()
+            return response.redirect('back')
+        }
+        
+        const post = new Post()
+
+        post.title = request.input('title')
+        post.body = request.input('body')
+
+        await post.save()
+
+        session.flash({ notification: 'Meeting Added!' })
+
+        return response.redirect('/')
     }
 }
 

@@ -90,6 +90,7 @@ span {
     max-width: 250px;
     background: #3498db;
     color: #fff;
+    display: none;
     transition: all 0.3s;
 }
 
@@ -97,6 +98,7 @@ span {
     min-width: 80px;
     max-width: 80px;
     text-align: center;
+    display: block;
 }
 
 #sidebar.active .sidebar-header h3,

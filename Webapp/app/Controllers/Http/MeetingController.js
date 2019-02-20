@@ -78,6 +78,16 @@ class MeetingController {
 
         return response.redirect('/')
     }
+
+    async destroy({ params, session, response }){
+        const meeting = await Meeting.find(params.id)
+
+        await meeting.delete()
+
+        session.flash({ notification: 'Meeting Deleted!' })
+        
+        return response.redirect('/meetings')
+    }
 }
 
 module.exports = MeetingController

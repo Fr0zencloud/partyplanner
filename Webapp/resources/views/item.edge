@@ -1,9 +1,12 @@
-<form>
+
     <div class="item">
         <h2 class="title">
             <span class="badge badge-secondary">Party </span> 
             <span class="name">{{ meeting.name }}</span>
-            <button class="btn btn-danger">Delete</button>
+            <form action="{{ '/meetings/' + meeting.id + '?_method=DELETE' }}" method="POST">
+                {{ csrfField() }}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
             <button class="btn btn-secondary">Edit</button>
         </h2>
         <div class="dateTime">
@@ -19,4 +22,3 @@
         </div>
         <p>{{ meeting.description }}</p>
     </div>
-</form>

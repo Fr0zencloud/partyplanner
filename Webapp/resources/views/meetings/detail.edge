@@ -2,10 +2,14 @@
 @section('content')
     <h1>All Meetings</h1>
     <div class="line"></div>
-    @each(meeting in meetings)
-        @include('item')
-        @if(!$loop.last)
-            <div class="line"></div>
-        @endif
-    @endeach
+    @if(meetings.length === 0)
+        <h3>There are currently no Meetings.</h3>
+    @else
+        @each(meeting in meetings)
+            @include('item')
+            @if(!$loop.last)
+                <div class="line"></div>
+            @endif
+        @endeach
+    @endif
 @endsection

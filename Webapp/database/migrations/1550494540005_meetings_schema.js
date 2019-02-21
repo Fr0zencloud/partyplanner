@@ -9,6 +9,7 @@ class MeetingsSchema extends Schema {
       table.increments()
       table.string('name')
       table.string('description')
+      table.string('tag')
       table.datetime('start_date')
       table.datetime('end_date')
       table.string('address')

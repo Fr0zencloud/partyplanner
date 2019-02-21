@@ -6,7 +6,7 @@
 
     <ul class="list-unstyled components">
         <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-users"></i>
                 Meetings
             </a>
@@ -14,12 +14,11 @@
                 <li>
                     <a href="/meetings"><i class="fas fa-calendar-alt"></i> All Meetings</a>
                 </li>
-                <li>
-                    <a href="#"><span class="badge badge-secondary">Party </span> Niklas Geburtstag</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-secondary">Chillen </span> AfterWork</a>
-                </li>
+                @each(meeting in meetings)
+                    <li>
+                        <a href="#"><span class="badge badge-secondary">Party </span> {{ meeting.name }}</a>
+                    </li>
+                @endeach
                 <li>
                     <a href="/meetings/add"><i class="fas fa-plus"></i> Create New Meeting</a>
                 </li>

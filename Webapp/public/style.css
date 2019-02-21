@@ -56,6 +56,10 @@ span {
     display: inline-block;
 }
 
+.tag{
+    text-transform: capitalize;
+}
+
 /* ---------------------------------------------------
     MEETING TILE STYLE
 ----------------------------------------------------- */
@@ -90,7 +94,6 @@ span {
     max-width: 250px;
     background: #3498db;
     color: #fff;
-    display: none;
     transition: all 0.3s;
 }
 

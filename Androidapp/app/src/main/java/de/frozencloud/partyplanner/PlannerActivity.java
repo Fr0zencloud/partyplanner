@@ -19,17 +19,13 @@ public class PlannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planner);
 
+        //Change Status Bar Color
         Window window = this.getWindow();
-
-// clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-// finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this ,R.color.colorAccent));
 
+        //WebView Init
         webView = findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -40,5 +36,14 @@ public class PlannerActivity extends AppCompatActivity {
         webView.setHorizontalScrollBarEnabled(false);
         webView.loadUrl("http://planner.frozencloud.de/");
         webView.setWebViewClient(new WebViewClient());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(webView.canGoBack()){
+            webView.goBack();
+        }else{
+            super.onBackPressed();
+        }
     }
 }

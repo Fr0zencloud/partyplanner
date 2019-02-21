@@ -16,7 +16,7 @@
             <h4><span class="fa fa-user"></span> 4/15 Accepted</h4>
         </div>
         <p>{{ meeting.description }}</p>
-        <div class="container">
+        <div class="container ml-0">
             <div class="row float-right">
                 <form action="{{ '/meetings/' + meeting.id + '?_method=DELETE' }}" method="POST">
                     {{ csrfField() }}

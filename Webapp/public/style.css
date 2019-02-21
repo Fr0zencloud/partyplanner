@@ -72,10 +72,7 @@ span {
 .title span { 
     float: left;
 } 
-.title button {
-    float: right;
-    margin-left: 1rem;
-}
+
 .title .name {
     margin-left: 1rem;
 }

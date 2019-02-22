@@ -30,7 +30,7 @@ class MeetingController {
             return d.toString()
         }
 
-        return view.render('meetings/detail', {
+        return view.render('meetings.upcoming', {
             meetings: meetings
         })
     }

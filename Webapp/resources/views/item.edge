@@ -3,6 +3,7 @@
         <h2 class="title">
             <span class="badge badge-secondary tag">{{ meeting.tag }}</span> 
             <span class="name">{{ meeting.name }}</span>
+            <a href="/view/{{ meeting.id }}"><i class="fa fa-info-circle"></i> details</a>
         </h2>
         <div class="dateTime">
             <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.start_date }}</h4><h4><span class="fa fa-clock"></span> {{ meeting.start_time }}</h4>

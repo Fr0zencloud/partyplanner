@@ -63,10 +63,13 @@ span {
 #content h1{
     margin-bottom: 0;
 }
-
 /* ---------------------------------------------------
     MEETING TILE STYLE
 ----------------------------------------------------- */
+.title{
+    display: flex;
+    justify-content: space-between;
+}
 
 .title::after { 
     content: '';
@@ -79,6 +82,12 @@ span {
 
 .title .name {
     margin-left: 1rem;
+}
+
+.title a{
+    font-size: 1rem !important;
+    text-align: center;
+    margin: auto 0 auto auto;
 }
 
 /* ---------------------------------------------------

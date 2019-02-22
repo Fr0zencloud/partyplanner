@@ -16,7 +16,7 @@
                 </li>
                 @each(meeting in meetings)
                     <li>
-                        <a href="#"><span class="badge badge-secondary">Party </span> {{ meeting.name }}</a>
+                        <a href="#"><span class="badge badge-secondary">{{ meeting.tag }} </span> {{ meeting.name }}</a>
                     </li>
                 @endeach
                 <li>

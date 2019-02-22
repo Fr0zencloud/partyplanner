@@ -48,7 +48,7 @@ a:focus {
     width: 100%;
     height: 1px;
     border-bottom: 1px solid #ddd;
-    margin: 40px 0;
+    margin: 2rem 0;
 }
 
 i,
@@ -58,6 +58,10 @@ span {
 
 .tag{
     text-transform: capitalize;
+}
+
+#content h1{
+    margin-bottom: 0;
 }
 
 /* ---------------------------------------------------

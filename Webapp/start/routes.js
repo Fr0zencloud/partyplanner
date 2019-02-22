@@ -16,6 +16,8 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+Route.get('/login', 'MeetingController.index')
+
 Route.get('/', 'MeetingController.index')
 Route.get('/meetings/', 'MeetingController.index')
 Route.get('/meetings/add', 'MeetingController.add')

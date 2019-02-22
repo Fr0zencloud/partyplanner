@@ -76,10 +76,7 @@ span {
 .title span { 
     float: left;
 } 
-.title button {
-    float: right;
-    margin-left: 1rem;
-}
+
 .title .name {
     margin-left: 1rem;
 }
@@ -352,5 +349,9 @@ span svg{
     .item .divider{
         margin: 0 10px 0 10px;
         font-size: 13px;
+    }
+
+    #sidebar{
+        display: none;
     }
 }

@@ -6,6 +6,11 @@ const Logger = use('Logger')
 const { validate } = use('Validator')
 
 class MeetingController {
+    async guest({ view }) {
+        
+        return view.render('session.guest')
+    }
+    
     async index({ view }) {
         let now = new Date(Date.now())
         now = now.toISOString().slice(0, 19).replace('T', ' ')
@@ -91,7 +96,7 @@ class MeetingController {
             session.flash({ notification: 'You are now participating for: ' + meeting_name }) 
         }
 
-        return response.redirect('/')
+        return response.redirect('/meetings')
     }
 
 
@@ -125,7 +130,7 @@ class MeetingController {
 
         session.flash({ notification: 'Meeting Added!' })
 
-        return response.redirect('/')
+        return response.redirect('/meetings')
     }
 
     async destroy({ params, session, response }){

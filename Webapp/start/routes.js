@@ -16,27 +16,35 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-//Auth
-Route.get('users/:id', 'UserController.show')
-Route.post('/login', 'UserController.login')
+Route.get('/', 'MeetingController.guest')
 
-//Upcoming Meetings (Dashboard)
-Route.get('/', 'MeetingController.index')
-Route.get('/meetings/', 'MeetingController.index')
+Route.group(() => {
+    Route.get('login', 'SessionController.create')
+    Route.post('login', 'SessionController.store')
+  
+    Route.get('register', 'UserController.create')
+    Route.post('register', 'UserController.store')
+  }).middleware(['guest'])
+  
+  Route.group(() => {
+    Route.get('logout', 'SessionController.delete')
+  
+    Route.get('/meetings/', 'MeetingController.index')
 
-//Meeting Details
-Route.get('/meetings/detail/:id', 'MeetingController.detail')
+    //Meeting Details
+    Route.get('/meetings/detail/:id', 'MeetingController.detail')
 
-//Participate Meeting
-Route.post('/meetings/participate/:id', 'MeetingController.participate')
+    //Participate Meeting
+    Route.post('/meetings/participate/:id', 'MeetingController.participate')
 
-//Add Meeting
-Route.get('/meetings/add', 'MeetingController.add')
-Route.post('/meetings/add', 'MeetingController.store')
+    //Add Meeting
+    Route.get('/meetings/add', 'MeetingController.add')
+    Route.post('/meetings/add', 'MeetingController.store')
 
-//Edit Meeting
-Route.get('/meetings/edit/:id', 'MeetingController.edit')
-Route.post('/meetings/update/:id', 'MeetingController.update')
+    //Edit Meeting
+    Route.get('/meetings/edit/:id', 'MeetingController.edit')
+    Route.post('/meetings/update/:id', 'MeetingController.update')
 
-//Delete Meeting
-Route.delete('/meetings/:id', 'MeetingController.destroy')
+    //Delete Meeting
+    Route.delete('/meetings/:id', 'MeetingController.destroy')
+  }).middleware(['auth'])

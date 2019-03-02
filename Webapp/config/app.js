@@ -94,7 +94,7 @@ module.exports = {
     | response.send('Hello', { ignoreEtag: true })
     |
     */
-    etag: false
+    etag: true
   },
 
   views: {
@@ -222,22 +222,5 @@ module.exports = {
       filename: 'adonis.log',
       level: 'info'
     }
-  },
-
-  /*
-  |--------------------------------------------------------------------------
-  | Generic Cookie Options
-  |--------------------------------------------------------------------------
-  |
-  | The following cookie options are generic settings used by AdonisJs to create
-  | cookies. However, some parts of the application like `sessions` can have
-  | seperate settings for cookies inside `config/session.js`.
-  |
-  */
-  cookie: {
-    httpOnly: true,
-    sameSite: false,
-    path: '/',
-    maxAge: 7200
   }
 }

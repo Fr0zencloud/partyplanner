@@ -1,0 +1,15 @@
+<input 
+    class="form-control"
+    id="{{ name }}"    
+    type="{{ type ? type : 'text' }}"
+    name="{{ name }}"
+    id="inputTitle"
+    @if(placeholder)
+        placeholder="{{ placeholder }}"
+    @endif
+    @if(value)
+        value="{{ value }}"
+    @endif
+    {{ required ? 'required' : null }}
+>
+        

@@ -6,6 +6,11 @@ const Logger = use('Logger')
 const { validate } = use('Validator')
 
 class MeetingController {
+    async guest({ view }) {
+        
+        return view.render('session.guest')
+    }
+    
     async index({ view }) {
         let now = new Date(Date.now())
         now = now.toISOString().slice(0, 19).replace('T', ' ')

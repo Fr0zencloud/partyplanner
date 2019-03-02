@@ -96,7 +96,7 @@ class MeetingController {
             session.flash({ notification: 'You are now participating for: ' + meeting_name }) 
         }
 
-        return response.redirect('/')
+        return response.redirect('/meetings')
     }
 
 
@@ -130,7 +130,7 @@ class MeetingController {
 
         session.flash({ notification: 'Meeting Added!' })
 
-        return response.redirect('/')
+        return response.redirect('/meetings')
     }
 
     async destroy({ params, session, response }){

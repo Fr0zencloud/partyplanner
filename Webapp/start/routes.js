@@ -17,6 +17,9 @@
 const Route = use('Route')
 
 Route.get('/', 'MeetingController.guest')
+Route.get('/faq', 'MeetingController.index')
+Route.get('/calendar', 'MeetingController.index')
+Route.get('/settings', 'MeetingController.index')
 
 Route.group(() => {
     Route.get('login', 'SessionController.create')

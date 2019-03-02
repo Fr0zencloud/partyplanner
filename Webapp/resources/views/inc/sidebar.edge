@@ -43,10 +43,17 @@
             </a>
         </li>
         <li>
-            <a href="/login">
-                <i class="fas fa-user"></i>
-                Login
-            </a>
+            @loggedIn
+                <a href="/logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            @else
+                <a href="/login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+            @endloggedIn
         </li>
     </ul>
 </nav>

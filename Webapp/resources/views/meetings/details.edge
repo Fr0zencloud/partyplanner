@@ -1,0 +1,26 @@
+@layout('main')
+@section('content')
+    <h1>Details</h1>
+    <div class="line"></div>
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">{{ meeting.name }}</h5>
+        <p class="card-text">{{ meeting.description }}</p>
+        <div class="item dateTime">
+            <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.start_date }}</h4><h4><span class="fa fa-clock"></span> {{ meeting.start_time }}</h4>
+            <h2 class="divider">-</h2>
+            <h4 class="spacer"><span class="fa fa-calendar-alt"></span> {{ meeting.end_date }}</h4><h4><span class="fa fa-clock"></span> {{ meeting.end_time }}</h4>
+        </div>
+        <form action="{{ '/meetings/' + meeting.id + '?_method=DELETE' }}" method="POST" class="float-left">
+            {{ csrfField() }}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <form action="{{ '/meetings/edit/' + meeting.id }}" method="GET">
+            {{ csrfField() }}
+            <button class="btn btn-secondary ml-2">Edit</button>
+        </div>
+        @each(participator in meeting.participants)
+            {{ participator.name }}
+        @endeach
+    </div>
+@endsection

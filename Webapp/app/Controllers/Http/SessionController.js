@@ -7,7 +7,7 @@ class SessionController {
      *
      * ref: http://adonisjs.com/docs/4.0/views
      */
-    return view.render('session.create')
+    return view.render('auth.login')
   }
 
   /**

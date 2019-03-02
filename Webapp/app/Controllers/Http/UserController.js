@@ -5,7 +5,7 @@ const { validateAll } = use('Validator')
 
 class UserController {
   create ({ view }) {
-    return view.render('user.create')
+    return view.render('auth.register')
   }
 
   async store ({ auth, session, request, response }) {

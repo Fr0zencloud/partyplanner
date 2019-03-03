@@ -4,6 +4,7 @@ const Meeting = use('App/Models/Meeting')
 const Participate = use('App/Models/Participate')
 const User = use('App/Models/User')
 const Logger = use('Logger')
+const Database = use('Database')
 const { validate } = use('Validator')
 
 class MeetingController {
@@ -59,6 +60,7 @@ class MeetingController {
     }
 
     async detail({ params, view }){
+        const max_users_count = (await Database.from('users').count())[0]['count(*)']
         const meeting = await Meeting.find(params.id)
         const participate = await Participate
             .query()
@@ -82,7 +84,8 @@ class MeetingController {
         meeting.participants = participants
 
         return view.render('meetings.details', {
-            meeting: meeting
+            meeting: meeting,
+            max_partcipants: max_users_count
         })
     }
 

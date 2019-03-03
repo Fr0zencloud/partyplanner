@@ -3,10 +3,12 @@ install:
 	@npm i -g @adonisjs/cli
 	@echo Install Installing Node Packages
 	@npm install
+
 start-dev:
 	@adonis serve --dev
 
 prod-update:
 	service partyplanner stop
 	git pull
+	@npm install || true
 	service partyplanner start

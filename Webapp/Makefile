@@ -6,3 +6,8 @@ install:
 	@npm install mysql
 start-dev:
 	@adonis serve --dev
+
+prod-update:
+	service stop partyplanner
+	git pull
+	service start partyplanner

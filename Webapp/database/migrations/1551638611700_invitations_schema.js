@@ -3,10 +3,10 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class ParticipateSchema extends Schema {
+class InvitationsSchema extends Schema {
   up () {
-    this.create('participates', (table) => {
-      table.increments()
+    this.create('invitations', (table) => {
+      table.increments()      
       table.integer('user_id')
       table.integer('meeting_id')
       table.foreign('user_id').references('users.id').onDelete('cascade')
@@ -16,8 +16,8 @@ class ParticipateSchema extends Schema {
   }
 
   down () {
-    this.drop('participates')
+    this.drop('invitations')
   }
 }
 
-module.exports = ParticipateSchema
+module.exports = InvitationsSchema

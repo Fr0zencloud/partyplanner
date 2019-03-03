@@ -111,7 +111,7 @@ span {
     min-width: 80px;
     max-width: 80px;
     text-align: center;
-    display: block;
+    display: block !important;
 }
 
 #sidebar.active .sidebar-header h3,
@@ -261,6 +261,7 @@ a.article:hover {
         max-width: 80px;
         text-align: center;
         margin-left: -80px !important;
+        display: none;
     }
     .dropdown-toggle::after {
         top: auto;
@@ -298,9 +299,6 @@ a.article:hover {
     }
     #sidebar {
         margin-left: 0;
-    }
-    #sidebarCollapse span {
-        display: none;
     }
 }
 
@@ -361,6 +359,10 @@ span svg{
     }
 
     #sidebar{
+        display: none;
+    }
+
+    #sidebarCollapse span {
         display: none;
     }
 }

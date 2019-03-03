@@ -1,6 +1,16 @@
 'use strict'
 
 class SessionController {
+  async index ({ response, auth }) {
+    try {
+      if(await auth.check()){
+        response.redirect('/meetings')
+      }
+    } catch (error) {
+      response.redirect('/login')
+    }
+  }
+
   create ({ view }) {
     /**
      * Render the view 'sessions.create'.

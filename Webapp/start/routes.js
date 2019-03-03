@@ -38,7 +38,10 @@ Route.group(() => {
     Route.get('/meetings/detail/:id', 'MeetingController.detail')
 
     //Participate Meeting
-    Route.post('/meetings/participate/:id', 'MeetingController.participate')
+    Route.post('/meetings/participate/:id', 'ParticipateController.participate')
+
+    //Quit Meeting
+    Route.delete('/meetings/quit/:id', 'ParticipateController.quit')
 
     //Add Meeting
     Route.get('/meetings/add', 'MeetingController.add')

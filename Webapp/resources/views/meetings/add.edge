@@ -4,6 +4,7 @@
     <div class="line"></div>
     <form action="/meetings/add" method="POST">
         {{ csrfField() }}
+        <input type="hidden" name="user_id" value="{{ auth.user.id }}">
         <div class="form-group">
             <label for="inputTitle">Title</label>
             <input type="text" name="title" class="form-control" id="inputTitle" placeholder="Meeting title">

@@ -19,10 +19,17 @@
         <p>{{ meeting.description }}</p>
         <div class="container ml-0">
             <div class="row float-right">
-                <form action="/meetings/participate/{{ meeting.id }}" method="POST">
-                    {{ csrfField() }}
-                    <button type="submit" class="btn btn-primary">Participate</button>
-                </form>
+                @if(meeting.isParticipating)
+                    <form action="{{ '/meetings/quit/' + meeting.id + '?_method=DELETE' }}" method="POST">
+                        {{ csrfField() }}
+                        <button type="submit" class="btn btn-primary">Quit Meeting</button>
+                    </form>
+                @else
+                    <form action="/meetings/participate/{{ meeting.id }}" method="POST">
+                        {{ csrfField() }}
+                        <button type="submit" class="btn btn-primary">Participate</button>
+                    </form>
+                @endif
                 <form action="{{ '/meetings/' + meeting.id + '?_method=DELETE' }}" method="POST">
                     {{ csrfField() }}
                     <button type="submit" class="btn btn-danger ml-2">Delete</button>

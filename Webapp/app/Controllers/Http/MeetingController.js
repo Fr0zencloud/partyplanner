@@ -2,12 +2,13 @@
 
 const Meeting = use('App/Models/Meeting')
 const Participate = use('App/Models/Participate')
+const User = use('App/Models/User')
 const Logger = use('Logger')
 const { validate } = use('Validator')
 
 class MeetingController {
     
-    async index({ view }) {
+    async index({ view, auth }) {
         let now = new Date(Date.now())
         now = now.toISOString().slice(0, 19).replace('T', ' ')
 
@@ -25,6 +26,21 @@ class MeetingController {
             meetings[i].end_date = getDate(end_date)
             meetings[i].start_time = getTime(start_date)
             meetings[i].end_time = getTime(end_date)
+
+            let participate = (await Participate
+                .query()
+                .where('meeting_id', meetings[i].id)
+                .where('user_id', (await auth.getUser()).id)
+                .fetch()
+            ).toJSON()[0]
+            
+            if(participate){
+                meetings[i].isParticipating = true
+            }else{
+                meetings[i].isParticipating = false
+            }
+            
+            
         }
 
         function twoDigits(d) {
@@ -49,14 +65,13 @@ class MeetingController {
             .select('user_id')
             .where('meeting_id', '=', params.id)
             .fetch()
-        
-        let participants = []
 
-        for(let i = 0; i < participate.rows.length; i++){
-            //TODO get name from user_id
-            let name = participate.rows[i].user_id
-            participants.push(name)
-        }
+            let participants = []
+
+            for(let i = 0; i < participate.rows.length; i++){
+                let name = (await User.find(participate.rows[i].user_id)).username
+                participants.push(name)
+            }
 
         let start_date = new Date(meeting.start_date)
         let end_date = new Date(meeting.end_date)
@@ -70,31 +85,6 @@ class MeetingController {
             meeting: meeting
         })
     }
-
-    async participate({ params, response, session }){
-        const meeting = await Meeting.find(params.id)
-        let meeting_name = meeting.name
-        
-        const participate = await Participate
-            .query()
-            .where('meeting_id', '=', params.id)
-            .fetch()
-
-        if(participate){
-            Logger.info('test') 
-            session.flash({ error: 'You are already participating the ' + meeting_name + '!'}) 
-        }else{
-            const toParticipate = new Participate()
-            toParticipate.meeting_id = params.id
-            toParticipate.user_id = 1
-            await toParticipate.save()
-    
-            session.flash({ notification: 'You are now participating for: ' + meeting_name }) 
-        }
-
-        return response.redirect('/meetings')
-    }
-
 
     async store({ request, response, session }){
         /*//Validate input

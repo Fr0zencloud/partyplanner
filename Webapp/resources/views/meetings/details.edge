@@ -19,8 +19,9 @@
             {{ csrfField() }}
             <button class="btn btn-secondary ml-2">Edit</button>
         </div>
+        Participants: ({{ meeting.participants.length }})
         @each(participator in meeting.participants)
-            {{ participator.name }}
+            {{ participator }}
         @endeach
     </div>
 @endsection

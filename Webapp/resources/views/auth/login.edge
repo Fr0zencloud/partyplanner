@@ -1,0 +1,14 @@
+@layout('auth.layout')
+@section('content')
+    <form class="form-signin" action="/login" method="POST">
+        {{ csrfField() }}
+        <img class="ml-auto mb-4  mr-auto" src="{{ assetsUrl('logo.png') }}" width="125px" height="125px">
+        @!component('components.label', { text: 'Username', related: 'username' })
+        @!component('components.input', { name: 'username', value: old('username'), required: true })
+        @!component('components.label', text = 'Password', related = 'password')
+        @!component('components.input', name = 'password', type = 'password', required = true)
+        <button class="btn btn-lg btn-primary btn-block" id="btn-submit">Sign in</button>
+        <a href="/register" class="btn btn-lg btn-secondary btn-block">Register</a>
+        <p class="mt-5 mb-3 text-muted">&copy; 2019 Frozencloud</p>
+    </form>
+@endsection

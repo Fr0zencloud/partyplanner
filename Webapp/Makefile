@@ -8,6 +8,6 @@ start-dev:
 	@adonis serve --dev
 
 prod-update:
-	service stop partyplanner
+	service partyplanner stop
 	git pull
-	service start partyplanner
+	service partyplanner start

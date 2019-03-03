@@ -54,3 +54,10 @@ Route.group(() => {
     //Delete Meeting
     Route.delete('/meetings/:id', 'MeetingController.destroy')
   }).middleware(['auth'])
+
+  Route.group(() => {
+    Route.get('/', 'AdminController.index')
+    Route.get('/usermanage', 'AdminController.usermanage')
+  })
+  .prefix('admin')
+  .middleware(['admin'])

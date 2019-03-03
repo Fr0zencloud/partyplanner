@@ -17,27 +17,4 @@
             <h4><span class="fa fa-user"></span> 4/15 Accepted</h4>
         </div>
         <p>{{ meeting.description }}</p>
-        <div class="container ml-0">
-            <div class="row float-right">
-                @if(meeting.isParticipating)
-                    <form action="{{ '/meetings/quit/' + meeting.id + '?_method=DELETE' }}" method="POST">
-                        {{ csrfField() }}
-                        <button type="submit" class="btn btn-primary">Quit Meeting</button>
-                    </form>
-                @else
-                    <form action="/meetings/participate/{{ meeting.id }}" method="POST">
-                        {{ csrfField() }}
-                        <button type="submit" class="btn btn-primary">Participate</button>
-                    </form>
-                @endif
-                <form action="{{ '/meetings/' + meeting.id + '?_method=DELETE' }}" method="POST">
-                    {{ csrfField() }}
-                    <button type="submit" class="btn btn-danger ml-2">Delete</button>
-                </form>
-                <form action="{{ '/meetings/edit/' + meeting.id }}" method="GET">
-                    {{ csrfField() }}
-                    <button class="btn btn-secondary ml-2">Edit</button>
-                </form>  
-            </div>
-        </div>
     </div>

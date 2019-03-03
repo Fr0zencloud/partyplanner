@@ -30,6 +30,14 @@
                 Calendar
             </a>
         </li>
+        @if(auth.user.role === "admin")
+        <li>
+            <a href="/admin">
+                <i class="fas fa-id-card"></i>
+                Admin
+            </a>
+        </li>
+        @endif
         <li>
             <a href="/settings">
                 <i class="fas fa-cog"></i>

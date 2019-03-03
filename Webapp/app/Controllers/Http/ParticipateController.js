@@ -29,7 +29,7 @@ class ParticipateController {
             session.flash({ notification: 'You are now participating for: ' + meeting_name }) 
         }
 
-        return response.redirect('/meetings')
+        return response.redirect('back')
     }
 
     async quit({ params, response, auth, session }){
@@ -41,7 +41,7 @@ class ParticipateController {
 
         session.flash({ notification: 'You Quit the Meeting!' })
 
-        return response.redirect('/meetings')
+        return response.redirect('back')
     }
 
 }

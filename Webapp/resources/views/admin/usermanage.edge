@@ -1,0 +1,18 @@
+@layout('main')
+@section('content')
+    <h1>Admin Area - User Management</h1>
+    <div class="line"></div>
+    <div class="card">
+        <div class="card-header">Users</div>
+        <ul class="list-group list-group-flush">
+            @each(user in users)
+                <li class="list-group-item d-flex" style="align-content: center;">
+                    <p>{{ user }}</p>
+                    <a class="btn btn-primary ml-auto">Reset Password</a>
+                    <a class="btn btn-warning ml-2">Make Admin</a>
+                    <a class="btn btn-danger ml-2">Delete</a>
+                </li>
+            @endeach
+        </ul>
+    </div>
+@endsection

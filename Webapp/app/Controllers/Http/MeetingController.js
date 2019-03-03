@@ -9,7 +9,7 @@ const { validate } = use('Validator')
 
 class MeetingController {
     
-    async index({ view, auth }) {
+    async index({ view }) {
         let now = new Date(Date.now())
         now = now.toISOString().slice(0, 19).replace('T', ' ')
 
@@ -27,27 +27,6 @@ class MeetingController {
             meetings[i].end_date = getDate(end_date)
             meetings[i].start_time = getTime(start_date)
             meetings[i].end_time = getTime(end_date)
-
-            let participate = (await Participate
-                .query()
-                .where('meeting_id', meetings[i].id)
-                .where('user_id', (await auth.getUser()).id)
-                .fetch()
-            ).toJSON()[0]
-            
-            if(participate){
-                meetings[i].isParticipating = true
-            }else{
-                meetings[i].isParticipating = false
-            }
-            
-            
-        }
-
-        function twoDigits(d) {
-            if(0 <= d && d < 10) return "0" + d.toString()
-            if(-10 < d && d < 0) return "-0" + (-1*d).toString()
-            return d.toString()
         }
 
         return view.render('meetings.upcoming', {
@@ -59,10 +38,10 @@ class MeetingController {
         return view.render('meetings.add')
     }
 
-    async detail({ params, view }){
+    async detail({ params, view, auth }){
         const max_users_count = (await Database.from('users').count())[0]['count(*)']
         const meeting = await Meeting.find(params.id)
-        const participate = await Participate
+        const participates = await Participate
             .query()
             .select('user_id')
             .where('meeting_id', '=', params.id)
@@ -70,8 +49,8 @@ class MeetingController {
 
             let participants = []
 
-            for(let i = 0; i < participate.rows.length; i++){
-                let name = (await User.find(participate.rows[i].user_id)).username
+            for(let i = 0; i < participates.rows.length; i++){
+                let name = (await User.find(participates.rows[i].user_id)).username
                 participants.push(name)
             }
 
@@ -82,6 +61,19 @@ class MeetingController {
         meeting.start_time = getTime(start_date)
         meeting.end_time = getTime(end_date)
         meeting.participants = participants
+
+        let participate = (await Participate
+            .query()
+            .where('meeting_id', meeting.id)
+            .where('user_id', (await auth.getUser()).id)
+            .fetch()
+        ).toJSON()[0]
+        
+        if(participate){
+            meeting.isParticipating = true
+        }else{
+            meeting.isParticipating = false
+        }
 
         return view.render('meetings.details', {
             meeting: meeting,

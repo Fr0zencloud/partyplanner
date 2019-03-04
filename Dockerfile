@@ -3,7 +3,7 @@ FROM node:latest
 # 2. Set the working directory inside the container to /app
 WORKDIR /app
 # 3. Add the .env to the directory (We need those variables)
-ADD $HOME/partyplanner/Webapp/.env /app/.env
+ADD .env /app/.env
 # ADD /opt/partyplanner/.env /app
 # 4. Expose port defined in .env file
 EXPOSE 3333

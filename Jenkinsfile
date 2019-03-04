@@ -3,6 +3,7 @@ pipeline {
   stages {
     stage('Build docker Image') {
       steps {
+        sh 'cp /opt/partyplanner/.env .'
         sh 'docker build -t partyplanner .'
       }
     }

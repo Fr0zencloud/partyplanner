@@ -5,8 +5,8 @@ pipeline {
       steps {
         sh 'cp /opt/partyplanner/Webapp/.env .'
         sh 'echo $PWD'
-        sh 'docker build -t partyplanner .'
         sh 'ls'
+        sh 'docker build -t partyplanner .'
       }
     }
     stage('Start Docker Image') {

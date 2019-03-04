@@ -1,9 +1,14 @@
 pipeline {
   agent any
   stages {
-    stage('Test') {
+    stage('Build docker Image') {
       steps {
-        echo 'test'
+        sh 'docker build -t partyplanner .'
+      }
+    }
+    stage('Start Docker Image') {
+      steps {
+        sh 'docker run -d -p 3333:3333 partyplanner'
       }
     }
   }

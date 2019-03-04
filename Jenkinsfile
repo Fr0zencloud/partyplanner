@@ -9,7 +9,9 @@ pipeline {
     }
     stage('Start Docker Image') {
       steps {
-        sh 'docker run -d -p 3333:3333 partyplanner'
+        sh '''docker stop partyplanner
+docker rm partyplanner
+docker run -d --name="partyplanner" -p3333:3333 partyplanner'''
       }
     }
   }

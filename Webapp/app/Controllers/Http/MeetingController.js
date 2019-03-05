@@ -23,6 +23,8 @@ class MeetingController {
         for (let i in meetings) {
             let start_date = new Date(meetings[i].start_date)
             let end_date = new Date(meetings[i].end_date)
+            Logger.info(getDate(new Date(Date.now())))
+
             meetings[i].start_date = getDate(start_date)
             meetings[i].end_date = getDate(end_date)
             meetings[i].start_time = getTime(start_date)
@@ -174,10 +176,9 @@ class MeetingController {
 }
 
 function getDate(date) {
-    let day = date.getDay()
-    let month = date.getMonth()
+    let day = date.getDate()
+    let month = date.getMonth() + 1
     let year = date.getFullYear()
-
     return day + "." + month + "." + year
 }
 

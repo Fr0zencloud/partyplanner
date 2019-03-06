@@ -10,6 +10,7 @@ const { validate } = use('Validator')
 class MeetingController {
     
     async index({ view }) {
+        const max_users_count = (await Database.from('users').count())[0]['count(*)']
         let now = new Date(Date.now())
         now = now.toISOString().slice(0, 19).replace('T', ' ')
 
@@ -29,11 +30,12 @@ class MeetingController {
             meetings[i].end_date = getDate(end_date)
             meetings[i].start_time = getTime(start_date)
             meetings[i].end_time = getTime(end_date)
-            meetings[i].participants = getParticipants(meetings[i].id)
+            meetings[i].participants = await getParticipants(meetings[i].id)
         }
 
         return view.render('meetings.upcoming', {
-            meetings: meetings
+            meetings: meetings,
+            max_partcipants: max_users_count
         })
     }
 
@@ -44,14 +46,13 @@ class MeetingController {
     async detail({ params, view, auth }){
         const max_users_count = (await Database.from('users').count())[0]['count(*)']
         const meeting = await Meeting.find(params.id)
-        
         let start_date = new Date(meeting.start_date)
         let end_date = new Date(meeting.end_date)
         meeting.start_date = getDate(start_date)
         meeting.end_date = getDate(end_date)
         meeting.start_time = getTime(start_date)
         meeting.end_time = getTime(end_date)
-        meeting.participants = getParticipants(params.id)
+        meeting.participants = await getParticipants(params.id)
 
         let participate = (await Participate
             .query()
@@ -164,7 +165,7 @@ class MeetingController {
     }
 }
 
-function getParticipants(meeting_id) {
+async function getParticipants(meeting_id) {
     let participates = await Participate
         .query()
         .select('user_id')

@@ -29,6 +29,7 @@ class MeetingController {
             meetings[i].end_date = getDate(end_date)
             meetings[i].start_time = getTime(start_date)
             meetings[i].end_time = getTime(end_date)
+            meetings[i].participants = getParticipants(meetings[i].id)
         }
 
         return view.render('meetings.upcoming', {
@@ -43,26 +44,14 @@ class MeetingController {
     async detail({ params, view, auth }){
         const max_users_count = (await Database.from('users').count())[0]['count(*)']
         const meeting = await Meeting.find(params.id)
-        const participates = await Participate
-            .query()
-            .select('user_id')
-            .where('meeting_id', '=', params.id)
-            .fetch()
-
-            let participants = []
-
-            for(let i = 0; i < participates.rows.length; i++){
-                let name = (await User.find(participates.rows[i].user_id)).username
-                participants.push(name)
-            }
-
+        
         let start_date = new Date(meeting.start_date)
         let end_date = new Date(meeting.end_date)
         meeting.start_date = getDate(start_date)
         meeting.end_date = getDate(end_date)
         meeting.start_time = getTime(start_date)
         meeting.end_time = getTime(end_date)
-        meeting.participants = participants
+        meeting.participants = getParticipants(params.id)
 
         let participate = (await Participate
             .query()
@@ -173,6 +162,23 @@ class MeetingController {
         
         return response.redirect('/meetings')
     }
+}
+
+function getParticipants(meeting_id) {
+    const participates = await Participate
+        .query()
+        .select('user_id')
+        .where('meeting_id', '=', meeting_id)
+        .fetch()
+
+    let participants = []
+
+    for(let i = 0; i < participates.rows.length; i++){
+        let name = (await User.find(participates.rows[i].user_id)).username
+        participants.push(name)
+    }
+    
+    return participants
 }
 
 function getDate(date) {

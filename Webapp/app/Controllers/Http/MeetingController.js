@@ -165,7 +165,7 @@ class MeetingController {
 }
 
 function getParticipants(meeting_id) {
-    const participates = await Participate
+    let participates = await Participate
         .query()
         .select('user_id')
         .where('meeting_id', '=', meeting_id)

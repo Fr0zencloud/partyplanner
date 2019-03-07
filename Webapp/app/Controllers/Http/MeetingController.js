@@ -8,7 +8,7 @@ const Database = use('Database')
 const { validate } = use('Validator')
 
 class MeetingController {
-    
+
     async index({ view }) {
         const max_users_count = (await Database.from('users').count())[0]['count(*)']
         let now = new Date(Date.now())
@@ -24,7 +24,6 @@ class MeetingController {
         for (let i in meetings) {
             let start_date = new Date(meetings[i].start_date)
             let end_date = new Date(meetings[i].end_date)
-            Logger.info(getDate(new Date(Date.now())))
 
             meetings[i].start_date = getDate(start_date)
             meetings[i].end_date = getDate(end_date)
@@ -39,11 +38,11 @@ class MeetingController {
         })
     }
 
-    async add({ view }){
+    async add({ view }) {
         return view.render('meetings.add')
     }
 
-    async detail({ params, view, auth }){
+    async detail({ params, view, auth }) {
         const max_users_count = (await Database.from('users').count())[0]['count(*)']
         const meeting = await Meeting.find(params.id)
         let start_date = new Date(meeting.start_date)
@@ -60,10 +59,10 @@ class MeetingController {
             .where('user_id', (await auth.getUser()).id)
             .fetch()
         ).toJSON()[0]
-        
-        if(participate){
+
+        if (participate) {
             meeting.isParticipating = true
-        }else{
+        } else {
             meeting.isParticipating = false
         }
 
@@ -73,7 +72,7 @@ class MeetingController {
         })
     }
 
-    async store({ request, response, session }){
+    async store({ request, response, session }) {
         /*//Validate input
         const validation = await validate(request.all(), {
             name: 'required|max:255',
@@ -89,7 +88,7 @@ class MeetingController {
             session.withErrors(validation.messages()).flashAll()
             return response.redirect('back')
         }
-*/        
+*/
         const meeting = new Meeting()
         //Date 2019-02-23 12:30:00
         meeting.name = request.input('title')
@@ -106,17 +105,17 @@ class MeetingController {
         return response.redirect('/meetings')
     }
 
-    async destroy({ params, session, response }){
+    async destroy({ params, session, response }) {
         const meeting = await Meeting.find(params.id)
 
         await meeting.delete()
 
         session.flash({ notification: 'Meeting Deleted!' })
-        
+
         return response.redirect('/meetings')
     }
 
-    async edit({ params, view }){
+    async edit({ params, view }) {
         let editMeeting = await Meeting.find(params.id)
 
         let start_date = new Date(editMeeting.start_date)
@@ -125,7 +124,7 @@ class MeetingController {
         editMeeting.end_date = end_date.toISOString().substring(0, end_date.toISOString().indexOf("T"));
         editMeeting.start_time = getTime(start_date)
         editMeeting.end_time = getTime(end_date)
-        
+
         let meetings = await Meeting.all()
         meetings = meetings.toJSON()
         return view.render('meetings.edit', {
@@ -134,7 +133,7 @@ class MeetingController {
         })
     }
 
-    async update({ params, request, response, session }){
+    async update({ params, request, response, session }) {
         /*//Validate input
         const validation = await validate(request.all(), {
             title: 'required|min:3|max:255',
@@ -160,7 +159,7 @@ class MeetingController {
         await meeting.save()
 
         session.flash({ notification: 'Meeting Updated!' })
-        
+
         return response.redirect('/meetings')
     }
 }
@@ -174,11 +173,12 @@ async function getParticipants(meeting_id) {
 
     let participants = []
 
-    for(let i = 0; i < participates.rows.length; i++){
-        let name = (await User.find(participates.rows[i].user_id)).username
+    for (let i = 0; i < participates.rows.length; i++) {
+        let user = (await User.find(participates.rows[i].user_id))
+        let name = user.name + " " + user.lastname
         participants.push(name)
     }
-    
+
     return participants
 }
 

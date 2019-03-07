@@ -9,13 +9,15 @@ class UserController {
   }
 
   async store ({ auth, session, request, response }) {
-    const data = request.only(['username', 'email', 'password', 'password_confirmation'])
+    const data = request.only(['username', 'name', 'lastname', 'email', 'password', 'password_confirmation'])
 
     //Adding Default role (=user)
     data.role = 'user'
 
     const validation = await validateAll(data, {
       username: 'required|unique:users',
+      name: 'required',
+      lastname: 'required',
       email: 'required|email|unique:users',
       password: 'required',
       password_confirmation: 'required_if:password|same:password',

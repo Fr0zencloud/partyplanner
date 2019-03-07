@@ -6,6 +6,14 @@
         @!component('components.label', { text: 'Username', related: 'username' })
         @!component('components.input', { name: 'username', value: old('username'), required: true })
         {{ elIf('<small class="text-xs text-danger">$self</small>', getErrorFor('username'), hasErrorFor('username')) }}
+
+        @!component('components.label', { text: 'name', related: 'name' })
+        @!component('components.input', { name: 'name', value: old('name'), required: true })
+        {{ elIf('<small class="text-xs text-danger">$self</small>', getErrorFor('name'), hasErrorFor('name')) }}
+
+        @!component('components.label', { text: 'lastname', related: 'lastname' })
+        @!component('components.input', { name: 'lastname', value: old('lastname'), required: true })
+        {{ elIf('<small class="text-xs text-danger">$self</small>', getErrorFor('lastname'), hasErrorFor('lastname')) }}
         
         @!component('components.label', { text: 'Email', related: 'email' })
         @!component('components.input', { name: 'email', type: 'email', value: old('email'), required: true })

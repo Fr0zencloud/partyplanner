@@ -32,6 +32,7 @@ Route.group(() => {
   Route.group(() => {
     Route.get('logout', 'SessionController.delete')
   
+    //Upcoming Meetings
     Route.get('/meetings/', 'MeetingController.index')
 
     //Meeting Details
@@ -53,11 +54,18 @@ Route.group(() => {
 
     //Delete Meeting
     Route.delete('/meetings/:id', 'MeetingController.destroy')
+
+    //Unread Invitations
+    Route.get('/invitations/', 'InvitationController.index')
+    Route.post('/invitations/create', 'InvitationController.create')
+    Route.post('/invitations/close/:id', 'InvitationController.close')
+    Route.delete('/invitations/delete/:id', 'InvitationController.delete')
   }).middleware(['auth'])
 
   Route.group(() => {
     Route.get('/', 'AdminController.index')
     Route.get('/usermanage', 'AdminController.usermanage')
+    Route.get('/invitationmanage', 'AdminController.invitationmanage')
   })
   .prefix('admin')
   .middleware(['admin'])

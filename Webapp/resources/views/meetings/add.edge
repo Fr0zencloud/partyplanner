@@ -51,6 +51,44 @@
                 <input type="number" name="zip" class="form-control" id="inputZip" placeholder="27432">
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-10">
+                <label for="inputInvitations">Invite someone!</label>
+                <select id="selectInvitations" class="form-control">
+                    @each(user in users)
+                        <option value="{{ user.id }}">{{ user.name + " " + user.lastname }}</option>
+                    @endeach
+                </select>
+            </div>
+            <div class="form-group col-md-2 mt-auto">
+                <button type="button" onclick="addInvitation()" class="btn btn-secondary form-control">Invite</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <ul id="invitations">
+            </ul>
+        </div>
         <button type="submit" class="btn btn-primary">Create Meeting</button>
     </form>
+    <script>
+        function addInvitation() {
+            let sel = document.getElementById('selectInvitations')
+
+            let invitation = document.createElement("LI");
+            let user = document.createElement("input");
+            user.type = "hidden";
+            user.name = "invitations[]";
+            user.value = sel.options[sel.selectedIndex].value;
+
+            let txt_li = document.createElement("p");
+            txt_li.appendChild(document.createTextNode(sel.options[sel.selectedIndex].text))
+            txt_li.appendChild(user)
+
+            invitation.appendChild(txt_li);
+            document.getElementById("invitations").appendChild(invitation);
+
+            sel.remove(sel.selectedIndex);
+        }
+
+    </script>
 @endsection

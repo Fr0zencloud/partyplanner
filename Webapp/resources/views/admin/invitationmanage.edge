@@ -1,0 +1,25 @@
+@layout('main')
+@section('content')
+    <h1>Admin Area - Create Invitation</h1>
+    <div class="line"></div>
+    <form action="/invitations/create" method="POST">
+        {{ csrfField() }}
+        <div class="form-group col-md-6 float-left">
+            <label for="selectUser">Select User</label>
+            <select id="selectUser" class="form-control" name="user_id">
+                @each(user in users)
+                    <option value="{{ user.id }}">{{ user.name + " " + user.lastname }}</option>
+                @endeach
+            </select>
+        </div>
+        <div class="form-group col-md-6 float-left">
+            <label for="selectMeeting">Select Meeting</label>
+            <select id="selectMeeting" class="form-control" name="meeting_id">
+                @each(meeting in meetings)
+                    <option value="{{ meeting.id }}">{{ meeting.name }}</option>
+                @endeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Invitation</button>
+    </form>
+@endsection

@@ -3,23 +3,25 @@
 const Meeting = use('App/Models/Meeting')
 const Participate = use('App/Models/Participate')
 const User = use('App/Models/User')
+const Invitation = use('App/Models/Invitation')
 const Logger = use('Logger')
 const Database = use('Database')
 const { validate } = use('Validator')
 
 class MeetingController {
 
-    async index({ view }) {
-        const max_users_count = (await Database.from('users').count())[0]['count(*)']
+    async index({ view, auth }) {
         let now = new Date(Date.now())
-        now = now.toISOString().slice(0, 19).replace('T', ' ')
 
-        let meetings = await Meeting
-            .query()
+        let meetings = await Database
+            .select('meetings.*', 'participates.id as invitationId', 'participates.user_id')
+            .from('meetings')
+            .leftJoin('participates', 'meetings.id', 'participates.meeting_id')
+            .where('participates.user_id', '=', (await auth.getUser()).id)
             .where('start_date', '>', now)
             .orderBy('start_date', 'asc')
-            .fetch()
-        meetings = meetings.toJSON()
+        
+        now = now.toISOString().slice(0, 19).replace('T', ' ')
 
         for (let i in meetings) {
             let start_date = new Date(meetings[i].start_date)
@@ -30,20 +32,28 @@ class MeetingController {
             meetings[i].start_time = getTime(start_date)
             meetings[i].end_time = getTime(end_date)
             meetings[i].participants = await getParticipants(meetings[i].id)
+            meetings[i].max_partcipants = ((await Invitation.query().where('meeting_id', meetings[i].id).count())[0]['count(*)']) + ((await Participate.query().where('meeting_id', meetings[i].id).count())[0]['count(*)'])
         }
+
+        let invitation_count = (await Invitation.query()
+            .where('user_id', '=', (await auth.getUser()).id)
+            .count())[0]['count(*)']
 
         return view.render('meetings.upcoming', {
             meetings: meetings,
-            max_partcipants: max_users_count
+            invitation_count: invitation_count
         })
     }
 
-    async add({ view }) {
-        return view.render('meetings.add')
+    async add({ view, auth }) {
+        const users = (await User.query().whereNot('id', '=', (await auth.getUser()).id).fetch()).toJSON()
+
+        return view.render('meetings.add', {
+            users: users
+        })
     }
 
     async detail({ params, view, auth }) {
-        const max_users_count = (await Database.from('users').count())[0]['count(*)']
         const meeting = await Meeting.find(params.id)
         let start_date = new Date(meeting.start_date)
         let end_date = new Date(meeting.end_date)
@@ -68,11 +78,11 @@ class MeetingController {
 
         return view.render('meetings.details', {
             meeting: meeting,
-            max_partcipants: max_users_count
+            max_partcipants: ((await Invitation.query().where('meeting_id', meeting.id).count())[0]['count(*)']) + ((await Participate.query().where('meeting_id', meeting.id).count())[0]['count(*)'])
         })
     }
 
-    async store({ request, response, session }) {
+    async store({ request, response, session, auth }) {
         /*//Validate input
         const validation = await validate(request.all(), {
             name: 'required|max:255',
@@ -99,6 +109,26 @@ class MeetingController {
         meeting.address = request.input('address')
         meeting.plz = request.input('zip')
         await meeting.save()
+
+        let invitation_users = request.input('invitations')
+        
+        for(let user_id of invitation_users) {
+            const invitation = new Invitation()
+            invitation.user_id = user_id
+            invitation.meeting_id = meeting.id
+            await invitation.save()
+        }
+
+        /*
+         * TODO Change this participation
+         * - Create a new field in the meeting shema (user_id)
+         * - Display all Meetings with the user_id
+         * - Show Username in the Details Page
+        */
+        const userParticipation = new Participate()
+        userParticipation.meeting_id = meeting.id
+        userParticipation.user_id = (await auth.getUser()).id
+        await userParticipation.save()
 
         session.flash({ notification: 'Meeting Added!' })
 

@@ -63,6 +63,13 @@ span {
 #content h1{
     margin-bottom: 0;
 }
+
+.back{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
 /* ---------------------------------------------------
     MEETING TILE STYLE
 ----------------------------------------------------- */

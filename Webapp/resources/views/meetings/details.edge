@@ -1,7 +1,7 @@
 @layout('main')
 @section('content')
     <div style="display: flex; align-items: center;">
-        <a href="/meetings">< Back</a>
+        <button class="back" onclick="goBack()">< Back</button>
         <h1 class="ml-4">Details</h1>
     </div>
     <div class="line"></div>
@@ -51,4 +51,9 @@
             </div>
         </div>
     </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 @endsection

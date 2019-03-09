@@ -1,0 +1,15 @@
+@layout('main')
+@section('content')
+    <h1>Invitations</h1>
+    <div class="line"></div>
+    @if(meetings.length === 0)
+        <h3>You are currently not invited to any Meeting 😞</h3>
+    @else
+        @each(meeting in meetings)
+            @include('meetings.templates.simplified')
+            @if(!$loop.last)
+                <div class="line"></div>
+            @endif
+        @endeach
+    @endif
+@endsection

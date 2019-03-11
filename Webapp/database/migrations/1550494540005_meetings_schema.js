@@ -9,6 +9,8 @@ class MeetingsSchema extends Schema {
       table.increments()
       table.string('name')
       table.string('description')
+      table.integer('user_id')
+      table.foreign('user_id').references('users.id').onDelete('cascade')
       table.string('tag')
       table.datetime('start_date')
       table.datetime('end_date')

@@ -40,14 +40,16 @@
                         <button type="submit" class="btn btn-primary">Participate</button>
                     </form>
                 @endif
-                <form action="{{ '/meetings/' + meeting.id + '?_method=DELETE' }}" method="POST">
-                    {{ csrfField() }}
-                    <button type="submit" class="btn btn-danger ml-2">Delete</button>
-                </form>
-                <form action="{{ '/meetings/edit/' + meeting.id }}" method="GET">
-                    {{ csrfField() }}
-                    <button class="btn btn-secondary ml-2">Edit</button>
-                </form>  
+                @if(meeting.user_id == auth.user.id || auth.user.role === "admin")
+                    <form action="{{ '/meetings/' + meeting.id + '?_method=DELETE' }}" method="POST">
+                        {{ csrfField() }}
+                        <button type="submit" class="btn btn-danger ml-2">Delete</button>
+                    </form>
+                    <form action="{{ '/meetings/edit/' + meeting.id }}" method="GET">
+                        {{ csrfField() }}
+                        <button class="btn btn-secondary ml-2">Edit</button>
+                    </form>      
+               @endif 
             </div>
         </div>
     </div>

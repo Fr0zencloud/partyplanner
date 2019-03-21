@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "adonis test",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc adonis test | nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
     "adonisjs",
@@ -31,7 +31,8 @@
     "@adonisjs/validator": "^5.0.6",
     "@adonisjs/vow": "^1.0.17",
     "mysql": "^2.16.0",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "yargs": "^13.2.2"
   },
   "devDependencies": {
     "coveralls": "^3.0.3",

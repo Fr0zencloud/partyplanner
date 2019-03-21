@@ -4,9 +4,7 @@ node_js:
 before_script: 
   - cd Webapp
   - wget -O .env "https://raw.githubusercontent.com/adonisjs/adonis-blog-demo/master/.env.example"
-  - npm i -g @adonisjs/cli
-  - npm i -g coveralls
-  - npm i -g nyc
+  - npm i @adonisjs/cli
   - npm install
 after_script:
  - npm run coverage

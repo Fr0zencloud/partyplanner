@@ -3,5 +3,6 @@ node_js:
   - "8"
 before_script: 
     - cd Webapp
+    - wget "https://raw.githubusercontent.com/adonisjs/adonis-blog-demo/master/.env.example"
     - npm i -g @adonisjs/cli
     - npm install

@@ -9,4 +9,4 @@ before_script:
   - npm i -g nyc
   - npm install
 after_script:
- - npm run covergage
+ - npm run coverage

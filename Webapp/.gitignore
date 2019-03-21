@@ -4,6 +4,10 @@ node_modules
 package-lock.json
 npm-debug.log
 
+#tests
+.nyc_output
+coverage
+
 # Adonis directory for storing tmp files
 tmp
 

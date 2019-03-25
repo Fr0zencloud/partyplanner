@@ -111,13 +111,15 @@ class MeetingController {
         await meeting.save()
 
         let invitation_users = request.input('invitations')
-        
-        for(let user_id of invitation_users) {
-            const invitation = new Invitation()
-            invitation.user_id = user_id
-            invitation.meeting_id = meeting.id
-            await invitation.save()
+        if(invitation_users != null) {
+            for(let user_id of invitation_users) {
+                const invitation = new Invitation()
+                invitation.user_id = user_id
+                invitation.meeting_id = meeting.id
+                await invitation.save()
+            } 
         }
+
 
         /*
          * TODO Change this participation

@@ -4,6 +4,9 @@ install:
 	@echo Install Installing Node Packages
 	@npm install
 
+tests:
+	nyc --all adonis test
+
 start-dev:
 	@adonis serve --dev
 

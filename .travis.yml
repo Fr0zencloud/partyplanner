@@ -7,4 +7,4 @@ before_script:
   - npm i @adonisjs/cli
   - npm install
 after_script:
- - npm run coverage
+ - # npm run coverage

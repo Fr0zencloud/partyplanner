@@ -1,8 +1,9 @@
 services:
   - docker
 language: node_js
+cache: npm
 node_js:
-  - "8"
+  - "11"
 before_install:
   - sudo apt-get install sshpass
 before_script: 

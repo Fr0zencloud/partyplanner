@@ -8,13 +8,14 @@ before_install:
   - sudo apt-get install sshpass
 before_script: 
   - cd Webapp
-  - wget -O .env "$ENV_FILE"
+  - # wget -O .env "$ENV_FILE"
   - npm i @adonisjs/cli
   - npm install
   - cd public
-  - wget -O firebase.js "$FIREBASE_SCRIPT"
 script:
   - cd ../../
+  - wget -O firebase.js "$FIREBASE_SCRIPT"
+  - wget -O .env "$ENV_FILE"
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_USER" --password-stdin
   - docker build -t niki2k1/partyplanner:latest .
   - docker push niki2k1/partyplanner:latest

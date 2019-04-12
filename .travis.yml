@@ -3,7 +3,7 @@ node_js:
   - "8"
 before_script: 
   - cd Webapp
-  - wget -O .env "https://raw.githubusercontent.com/adonisjs/adonis-blog-demo/master/.env.example"
+  - wget -O .env "$ENV_FILE"
   - npm i @adonisjs/cli
   - npm install
 after_script:

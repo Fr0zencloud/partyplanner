@@ -13,12 +13,13 @@ before_script:
   - npm install
   - cd public
   - wget -O firebase.js "$FIREBASE_SCRIPT"
-after_script:
-  - # npm run coverage
+script:
   - cd ../../
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_USER" --password-stdin
   - docker build -t niki2k1/partyplanner:latest .
   - docker push niki2k1/partyplanner:latest
+after_script:
+  - # npm run coverage
 deploy:
   - provider: script
     script: bash scripts/deploy.sh

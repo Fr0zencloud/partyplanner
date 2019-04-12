@@ -1,6 +1,10 @@
+services:
+  - docker
 language: node_js
 node_js:
   - "8"
+before_install:
+  - sudo apt-get install sshpass
 before_script: 
   - cd Webapp
   - wget -O .env "$ENV_FILE"
@@ -8,3 +12,11 @@ before_script:
   - npm install
 after_script:
  - # npm run coverage
+ - echo "$DOCKER_PW" | docker login -u "$DOCKER_USER" --password-stdin
+ - docker build -t niki2k1/partyplanner:latest .
+ - docker push niki2k1/partyplanner:latest
+deploy:
+ - provider: script
+    script: bash scripts/deploy.sh production
+    on:
+      branch: master

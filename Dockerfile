@@ -4,6 +4,7 @@ FROM node:latest
 WORKDIR /app
 # 3. Add the .env to the directory (We need those variables)
 ADD .env /app/.env
+ADD firebase.js /app/public/firebase.js
 # ADD /opt/partyplanner/.env /app
 # 4. Expose port defined in .env file
 EXPOSE 3333

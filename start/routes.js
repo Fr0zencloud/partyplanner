@@ -17,9 +17,9 @@
 const Route = use('Route')
 
 Route.get('/', 'SessionController.index')
-Route.get('/faq', 'MeetingController.index')
-Route.get('/calendar', 'MeetingController.index')
-Route.get('/settings', 'MeetingController.index')
+Route.get('/faq', 'MeetingController.index').as('faq')
+Route.get('/calendar', 'MeetingController.index').as('calendar')
+Route.get('/settings', 'MeetingController.index').as('settings')
 
 Route.group(() => {
     Route.get('login', 'SessionController.create')
@@ -33,10 +33,10 @@ Route.group(() => {
     Route.get('logout', 'SessionController.delete')
   
     //Upcoming Meetings
-    Route.get('/meetings/', 'MeetingController.index')
+    Route.get('/meetings/', 'MeetingController.index').as('meetings_all')
 
     //Meeting Details
-    Route.get('/meetings/detail/:id', 'MeetingController.detail')
+    Route.get('/meetings/detail/:id', 'MeetingController.detail').as('meetings_details')
 
     //Participate Meeting
     Route.post('/meetings/participate/:id', 'ParticipateController.participate')
@@ -45,27 +45,27 @@ Route.group(() => {
     Route.delete('/meetings/quit/:id', 'ParticipateController.quit')
 
     //Add Meeting
-    Route.get('/meetings/add', 'MeetingController.add')
+    Route.get('/meetings/add', 'MeetingController.add').as('meetings_add')
     Route.post('/meetings/add', 'MeetingController.store')
 
     //Edit Meeting
-    Route.get('/meetings/edit/:id', 'MeetingController.edit')
+    Route.get('/meetings/edit/:id', 'MeetingController.edit').as('meetings_edit')
     Route.post('/meetings/update/:id', 'MeetingController.update')
 
     //Delete Meeting
     Route.delete('/meetings/:id', 'MeetingController.destroy')
 
     //Unread Invitations
-    Route.get('/invitations/', 'InvitationController.index')
+    Route.get('/invitations/', 'InvitationController.index').as('invitations_unread')
     Route.post('/invitations/create', 'InvitationController.create')
     Route.post('/invitations/close/:id', 'InvitationController.close')
     Route.delete('/invitations/delete/:id', 'InvitationController.delete')
   }).middleware(['auth'])
 
   Route.group(() => {
-    Route.get('/', 'AdminController.index')
-    Route.get('/usermanage', 'AdminController.usermanage')
-    Route.get('/invitationmanage', 'AdminController.invitationmanage')
+    Route.get('/', 'AdminController.index').as('admin')
+    Route.get('/usermanage', 'AdminController.usermanage').as('admin_usermanage')
+    Route.get('/invitationmanage', 'AdminController.invitationmanage').as('admin_invitationmanage')
   })
   .prefix('admin')
   .middleware(['admin'])

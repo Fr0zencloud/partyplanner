@@ -1,0 +1,24 @@
+.DS_Store
+# Node modules
+node_modules
+npm-debug.log
+
+#tests
+.nyc_output
+coverage
+
+# Firebase (Contains API Key)
+firebase.js
+
+# Adonis directory for storing tmp files
+tmp
+
+# Environment variables, never commit this file
+.env
+
+# The development sqlite file
+database/development.sqlite
+
+# VSCode & Webstorm history directories
+.history
+.idea

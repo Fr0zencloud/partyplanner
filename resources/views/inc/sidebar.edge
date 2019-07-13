@@ -1,0 +1,76 @@
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>PartyPlanner</h3>
+        <img src="/logo_light.png" width="40px" height="40px">
+    </div>
+
+    <ul class="list-unstyled components">
+        <li class="{{ (routeName == 'meetings_all'?'active':'') }}">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-users"></i>
+                Meetings
+            </a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a href="/meetings"><i class="fas fa-calendar-alt"></i> All Meetings</a>
+                </li>
+                @each(meeting in meetings)
+                    <li>
+                        <a href="#"><span class="badge badge-secondary">{{ meeting.tag }} </span> {{ meeting.name }}</a>
+                    </li>
+                @endeach
+                <li>
+                    <a href="/meetings/add"><i class="fas fa-plus"></i> Create New Meeting</a>
+                </li>
+            </ul>
+        </li>
+        <li class="{{ (routeName == 'invitations_unread'?'active':'') }}">
+            <a href="/invitations">
+                <i class="fas fa-inbox"></i>
+                Invitations
+                @if(invitation_count > 0)
+                <span class="badge badge-pill badge-danger">{{ invitation_count }}</span>
+                @endif
+            </a>
+        </li>
+        <li class="{{ (routeName == 'calendar'?'active':'') }}">
+            <a href="/calendar">
+                <i class="fas fa-calendar"></i>
+                Calendar
+            </a>
+        </li>
+        @if(auth.user.role === "admin")
+        <li class="{{ (routeName == 'admin'?'active':'') }}">
+            <a href="/admin">
+                <i class="fas fa-id-card"></i>
+                Admin
+            </a>
+        </li>
+        @endif
+        <li class="{{ (routeName == 'settings'?'active':'') }}">
+            <a href="/settings">
+                <i class="fas fa-cog"></i>
+                Settings
+            </a>
+        </li>
+        <li class="{{ (routeName == 'faq'?'active':'') }}">
+            <a href="/faq">
+                <i class="fas fa-question"></i>
+                FAQ
+            </a>
+        </li>
+        <li>
+            @loggedIn
+                <a href="/logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            @else
+                <a href="/login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+            @endloggedIn
+        </li>
+    </ul>
+</nav>

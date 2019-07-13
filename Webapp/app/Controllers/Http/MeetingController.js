@@ -39,8 +39,11 @@ class MeetingController {
             .where('user_id', '=', (await auth.getUser()).id)
             .count())[0]['count(*)']
 
+        let meetingsJSON = meetings.toISOString()
+
         return view.render('meetings.upcoming', {
             meetings: meetings,
+            meetingsJSON: meetingsJSON,
             invitation_count: invitation_count
         })
     }
@@ -83,22 +86,23 @@ class MeetingController {
     }
 
     async store({ request, response, session, auth }) {
-        /*//Validate input
+        //Validate input
         const validation = await validate(request.all(), {
-            name: 'required|max:255',
+            title: 'required|max:255',
             description: 'required|max:255',
             tag: 'required',
-            start_date: 'required',
-            end_date: 'required',
-            adress: 'required',
-            plz: 'required|min:6|max:6',
+            start_date: 'required|date',
+            start_time: 'required',
+            end_date: 'required|date',
+            end_time: 'required',
+            address: 'required',
+            plz: 'required|min:5|max:6',
         })
 
         if(validation.fails()){
             session.withErrors(validation.messages()).flashAll()
             return response.redirect('back')
         }
-*/
         const meeting = new Meeting()
         //Date 2019-02-23 12:30:00
         meeting.name = request.input('title')
@@ -123,9 +127,9 @@ class MeetingController {
 
         /*
          * TODO Change this participation
-         * - Create a new field in the meeting shema (user_id)
-         * - Display all Meetings with the user_id
-         * - Show Username in the Details Page
+         * - (✓) Create a new field in the meeting shema (user_id)
+         * - ( ) Display all Meetings with the user_id
+         * - ( ) Show Username in the Details Page
         */
         const userParticipation = new Participate()
         userParticipation.meeting_id = meeting.id

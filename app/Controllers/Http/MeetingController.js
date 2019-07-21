@@ -122,7 +122,7 @@ class MeetingController {
 
 
         /*
-         * TODO Change this participation
+         * TODO: Change this participation
          * - Create a new field in the meeting shema (user_id)
          * - Display all Meetings with the user_id
          * - Show Username in the Details Page
@@ -144,7 +144,7 @@ class MeetingController {
 
         session.flash({ notification: 'Meeting Deleted!' })
 
-        return response.redirect('/meetings')
+        return response.redirect('back')
     }
 
     async edit({ params, view }) {

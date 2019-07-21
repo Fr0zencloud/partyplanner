@@ -5,6 +5,7 @@
     @if(meetings.length === 0)
         <h3>There are currently no Meetings.</h3>
     @else
+        {{ meetingsJSON }}
         @each(meeting in meetings)
             @include('item')
             @if(!$loop.last)
